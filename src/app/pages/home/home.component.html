@@ -1,0 +1,126 @@
+<app-navbar></app-navbar>
+<main class="my-4">
+    <form #form="ngForm" autocomplete="off" (ngSubmit)="submit( form )" enctype="multipart/form-data" class="form mx-auto rounded">
+        <h2 class="text-center mb-4"><i class="fas fa-mail-bulk"></i> Buzón</h2>
+
+        <!--=========================  Tipo asunto ============================-->
+        <div class="row mb-4">
+            <div class="col-sm-6">
+                <p class="my-0">Tipo de asunto: </p>
+            </div>
+            <div class="col-sm-6">
+                <select class="form-select form-select-sm" [(ngModel)]="asuntoSeleccionado" name="tipoAsunto"
+                    #tipoAsunto="ngModel" required>
+                    <option *ngFor="let opcion of asuntos" [value]="opcion">
+                        {{ opcion }}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <!--=========================  Fin tipo asunto ============================-->
+
+        <!--=========================  Tipo tema ============================-->
+        <div class="row mb-4">
+            <div class="col-sm-6">
+                <p class="my-0">Tipo de tema: </p>
+            </div>
+            <div class="col-sm-6">
+                <select class="form-select form-select-sm" [(ngModel)]="temaSeleccionado" name="tipoTema"
+                    #tipoTema="ngModel" required>
+                    <option *ngFor="let opcion of temas" [value]="opcion">
+                        {{ opcion }}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <!--=========================  Fin tipo tema ============================-->
+
+        <!--=========================  Descripción ============================-->
+        <div class="row mb-4">
+            <div class="col-sm-6">
+                <p class="my-0">Breve descripción: </p>
+            </div>
+            <div class="col-sm-6">
+                <textarea class="form-control" rows="3" name="descripcion" minlength="5" ngModel #descripcion="ngModel"
+                    [ngClass]="{'is-invalid':(descripcion.invalid && form.submitted) || (descripcion.invalid && descripcion.touched)}"
+                    required>
+
+                </textarea>
+            </div>
+        </div>
+        <!--=========================  Fin descripción ============================-->
+
+        <!--=========================  Evidencia ============================-->
+        <div class="row mb-4">
+            <div class="col-sm-6">
+                <p class="my-0">Adjuntar evidencia: </p>
+            </div>
+            <div class="col-sm-6">
+                <input class="form-control form-control-sm" id="formFileSm" type="file" (change)="leerArchivo($event)"
+                    name="file" ngModel #file="ngModel" multiple>
+            </div>
+        </div>
+        <!--=========================  Fin evidencia ============================-->
+
+        <!--=========================  Validar anonimato ============================-->
+        <div class="row mb-4">
+            <div class="col-sm-6">
+                <p class="my-0">Validar anonimato: </p>
+            </div>
+            <div class="col-sm-6 d-flex">
+                <div class="form-check me-5" (change)="mostrar('si')">
+                    <input class="form-check-input" type="radio" value="Si" name="anonimato" id="validarSi" ngModel
+                        #validar="ngModel" required>
+                    <label class="form-check-label" for="ValidarSi"
+                        [ngClass]="{'text-danger': (validar.invalid && form.submitted) || (validar.invalid && validar.touched)}">
+                        Si
+                    </label>
+                </div>
+                <div class="form-check" (change)="mostrar('no')">
+                    <input class="form-check-input" type="radio" value="No" name="anonimato" id="validarNo" ngModel
+                        #validar="ngModel" required>
+                    <label class="form-check-label" for="validarNo"
+                        [ngClass]="{'text-danger': (validar.invalid && form.submitted) || (validar.invalid && validar.touched)}">
+                        No
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!--=========================  Medio contacto ============================-->
+        <div class="row mb-4 p-4 border animate__animated animate__fadeInDown" *ngIf="abrir">
+            <div class="col-sm-6 mb-4">
+                <p class="my-0">Contacto para resolución: </p>
+            </div>
+            <div class="col-sm-6 mb-4">
+                <select class="form-select form-select-sm" [(ngModel)]="contactoSeleccionado" name="contacto" required>
+                    <option *ngFor="let opcion of contactos" [value]="opcion">
+                        {{ opcion }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-sm-6">
+                <p class="my-0" *ngIf="contactoSeleccionado === 'Vía telefonica'">Número telefonico: </p>
+                <p class="my-0" *ngIf="contactoSeleccionado === 'Vía correo'">Correo electronico: </p>
+            </div>
+            <div class="col-sm-6">
+                <input class="form-control form-control-sm" type="number"
+                    *ngIf="contactoSeleccionado === 'Vía telefonica'" name="telefono" pattern="[0-9]{10}" ngModel #telefono="ngModel"
+                    [ngClass]="{'is-invalid':(telefono.invalid && form.submitted) || (telefono.invalid && telefono.touched)}"
+                    required>
+
+                <input class=" form-control form-control-sm" type="text" *ngIf="contactoSeleccionado === 'Vía correo'"
+                    name="correo" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" ngModel #correo="ngModel"
+                    [ngClass]="{'is-invalid':(correo.invalid && form.submitted) || (correo.invalid && correo.touched)}"
+                    required>
+            </div>
+        </div>
+        <!--=========================  Fin medio contacto ============================-->
+
+        <!--=========================  Fin anonimato ============================-->
+        <button type="submit" class="btn btn-outline-primary d-block w-50 mx-auto">Enviar</button>
+    </form>
+</main>
