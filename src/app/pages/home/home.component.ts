@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { SendEmailService } from '../../services/send-email.service';
 import Swal from 'sweetalert2'
+import { AlertsService } from '../../services/alerts.service';
 
 @Component({
   selector: 'app-home',
@@ -28,12 +29,19 @@ export class HomeComponent {
   //Archivo subido
   file: Array<File> = null;
 
-  constructor(private _send: SendEmailService) { }
+  constructor(private _send: SendEmailService, private alert: AlertsService) { }
 
   submit(form: NgForm): void {
 
     //Si el formulario es invalido no se envia
     if (form.invalid) return;
+
+    //Impide que mande nombre y descripcion vacio
+    if(form.value.nombreC.trim() === '' || form.value.descripcion.trim() === ''){
+      alert('No puede enviar campos vacios');
+      return ;
+    }
+    
     //Si no hay archivos se limpia los archivos seleccionados anteriormente
     if (form.value.file === '') this.file = null;
 
@@ -48,7 +56,6 @@ export class HomeComponent {
       }
     }
 
-
     //Primero se suben los archivos al servidor
     this._send.sendFiles(formData).subscribe(res => {
       //Se obtienen la ubicacion de los archivos que se subieron 
@@ -56,12 +63,12 @@ export class HomeComponent {
       //Se envia el correo con la información del formulario más los archivos que se adjuntaran (si los hay)
       this._send.sendEmail(data).subscribe(res => {
         //Muestra una ventana de que todo salio bien
-        this.mensajeSucces(res['status'])
+        this.alert.mensajeSucces(res['status']);
 
         //Limpia el formulario
         form.resetForm({ tipoAsunto: this.asuntoSeleccionado, tipoTema: this.temaSeleccionado, contacto: this.contactoSeleccionado });
         this.abrir = false;
-      }, (res) => this.mensajeError(res.status))
+      }, (res) => this.alert.mensajeError(res.status))
     });
   }
 
@@ -73,22 +80,6 @@ export class HomeComponent {
   mostrar(mostrar: string): void {
     //Verifica si será anonimo o no, dependiendo de la respuesta se mostrará los campos de contacto
     this.abrir = mostrar === 'si' ? false : true;
-  }
-
-  mensajeError(error: string = 'Hubo un error, intentelo de nuevo') {
-    Swal.fire({
-      icon: 'error',
-      title: 'Hubo un error',
-      text: error
-    })
-  }
-
-  mensajeSucces(mensaje: string) {
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: mensaje
-    })
   }
 
 }

@@ -1,0 +1,13 @@
+<div class="row mb-4">
+    <div class="col-6">
+        <input class="form-control form-control-sm" type="text" placeholder="Buscar por index" [(ngModel)]="filtro.buscar">
+    </div>
+
+    <div class="col-6">
+        <select class="form-select form-select-sm" name="select" [(ngModel)]="filtro.seleccionado">
+            <option value="Ultimos agregados" selected>Ultimos agregados</option>
+            <option value="Primeros agregados">Primeros agregados</option>
+            <option value="No leidos">No leidos</option>
+        </select>
+    </div>
+</div>

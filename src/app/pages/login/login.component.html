@@ -1,0 +1,18 @@
+<div class="d-flex my-4 justify-content-center h-100 align-items-center">
+    <form #form="ngForm" (submit)="login( form )" class="border p-5 login">
+        <h3 class="text-center mb-3">Bienvenido</h3>
+        <div class="mb-3">
+            <input class="form-control form-control-sm" type="text" name="correo" ngModel #correo="ngModel"
+                placeholder="Correo electronico" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required
+                [ngClass]="{'is-invalid':(correo.invalid && form.submitted) || (correo.invalid && correo.touched)}">
+        </div>
+
+        <div class="mb-3">
+            <input class="form-control form-control-sm" type="password" name="password" ngModel #password="ngModel"
+                placeholder="Password" minlength="3" required
+                [ngClass]="{'is-invalid':(password.invalid && form.submitted) || (password.invalid && password.touched)}">
+        </div>
+
+        <button type="submit" class="btn btn-outline-primary d-block w-50 mx-auto">Submit</button>
+    </form>
+</div>

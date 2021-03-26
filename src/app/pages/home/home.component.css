@@ -8,32 +8,7 @@
     box-sizing: border-box;
 }
 
-textarea, input, select, button {
-    box-shadow: none !important;
-}
 
-textarea:focus, input:focus, select:focus, button:focus {
-    border: 1px solid rgb(46, 71, 104) !important;
-}
-
-
-textarea {
-    font-size: 14px;
-}
-
-button {
-    border: 1px solid rgb(46, 71, 104) !important;
-    color: rgb(46, 71, 104) !important;
-}
-
-button:hover {
-    background-color: rgb(46, 71, 104) !important;
-    color: #fff !important;
-}
-
-input[type="radio"]:checked {
-    background-color: rgb(46, 71, 104);
-}
 
 
 @media screen and (max-width: 500px) {
