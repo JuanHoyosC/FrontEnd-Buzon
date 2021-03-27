@@ -10,7 +10,8 @@ export class AuthService {
     userToken;
 
     logout() {
-        localStorage.removeItem('token');
+        localStorage.removeItem('token-buzon');
+        localStorage.removeItem('expira-buzon');
         this.userToken = '';   
         this.route.navigateByUrl('/home');
     }

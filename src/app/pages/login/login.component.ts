@@ -21,8 +21,6 @@ export class LoginComponent {
       if(res['status']) { this.alert.mensajeError('Usuario o contraseña incorrecta'); return; }
       this.route.navigateByUrl('/modulo');
     })
-  }
-
-  
+  }  
 
 }

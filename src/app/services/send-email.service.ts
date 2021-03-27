@@ -36,7 +36,6 @@ export class SendEmailService {
 
   //Se encarga de marcar el leido y mandar el actualziado al backend
   marcarLeido(id, leido) {
-    console.log(this.auth.userToken)
     this.http.post('http://localhost:4000/marcarLeido', {id, leido: leido}, {headers: {'access-token': this.auth.userToken}}).subscribe(res => console.log(res))
   }
 

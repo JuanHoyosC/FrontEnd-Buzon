@@ -41,7 +41,7 @@
                 <td *ngIf="email.ubicacion.length === 0" class="text-center text-danger" data-bs-toggle="tooltip"
                     data-bs-placement="top" title="No hay registro"><i class="fas fa-ban"></i></td>
 
-                <!---   Se muestra si el mensaje ha sido bloqueado o no  -->
+                <!---   Se muestra si el mensaje ha sido leido o no  -->
                 <td class="text-center">
                     <i class="fas" (click)="marcarLeido(email._id, !email.leido)" data-bs-toggle="tooltip"
                         data-bs-placement="top" title="Cambiar estado"
