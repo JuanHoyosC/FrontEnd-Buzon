@@ -37,8 +37,8 @@ export class HomeComponent {
     if (form.invalid) return;
 
     //Impide que mande nombre y descripcion vacio
-    if(form.value.nombreC.trim() === '' || form.value.descripcion.trim() === ''){
-      alert('No puede enviar campos vacios');
+    if(form.value.nombreC?.trim() === '' || form.value.descripcion?.trim() === ''){
+      this.alert.mensajeError('No puede enviar campos vacios');
       return ;
     }
     
