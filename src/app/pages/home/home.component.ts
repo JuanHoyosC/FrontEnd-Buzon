@@ -11,6 +11,8 @@ import { AlertsService } from '../../services/alerts.service';
 })
 export class HomeComponent {
 
+  loading: boolean = false;
+
   //Lista de temas y tema inicial
   temas: string[] = ['Interno de la unidad', 'Interno al CJF', 'Externo al CJF'];
   temaSeleccionado: string = 'Interno de la unidad';
@@ -30,6 +32,8 @@ export class HomeComponent {
   file: Array<File> = null;
 
   constructor(private _send: SendEmailService, private alert: AlertsService) { }
+
+  
 
   submit(form: NgForm): void {
 
@@ -55,13 +59,14 @@ export class HomeComponent {
         formData.append('', this.file[i]);
       }
     }
-
+    this.loading = true;
     //Primero se suben los archivos al servidor
     this._send.sendFiles(formData).subscribe(res => {
       //Se obtienen la ubicacion de los archivos que se subieron 
       const data = { ubicacion: res, ...form.value };
       //Se envia el correo con la información del formulario más los archivos que se adjuntaran (si los hay)
       this._send.sendEmail(data).subscribe(res => {
+        this.loading = false;
         //Muestra una ventana de que todo salio bien
         this.alert.mensajeSucces(res['status']);
 

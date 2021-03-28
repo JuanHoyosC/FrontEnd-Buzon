@@ -10,6 +10,8 @@ import { AuthService } from './auth.service';
 })
 export class SendEmailService {
 
+  loading: boolean = false;
+
   constructor(private http: HttpClient, private auth: AuthService) { }
 
   //Envia los archivos a la base de datos
@@ -23,12 +25,13 @@ export class SendEmailService {
   }
 
   descargarZip(ubicacion: string[], nombre: string) {
-
+      this.loading = true;
       this.http.post<Blob>(`http://localhost:4000/descargaZip`, {ubicacion: ubicacion},  {headers: {'access-token': this.auth.userToken}, observe: 'response', responseType: 'blob' as 'json'})
               .subscribe((data) => {
               
         //Libreria que ayuda en las descargas de archivos        
         saveAs(data.body, `${ nombre }.zip`)
+        setTimeout(()=> this.loading = false , 250);
       }, (error) => console.log(error))
 
   }

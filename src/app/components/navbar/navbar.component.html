@@ -6,6 +6,10 @@
             BuzonApp
         </a>
 
+        <a class="navbar-brand m-0 text-white" routerLink="/login" *ngIf="estaAutenticado()">
+            Modulo
+        </a>
+
         <a class="navbar-brand m-0 text-white" routerLink="/login" *ngIf="!estaAutenticado()">
             Login
         </a>

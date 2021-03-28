@@ -18,7 +18,7 @@ export class ModuloVisualComponent {
   caso: string = '';
   descripcion: string = '';
 
-  constructor(private email: SendEmailService, private alert: AlertsService) {
+  constructor(public email: SendEmailService, private alert: AlertsService) {
     //Obtiene todos los registros guardados en la base de datos
     this.email.getEmails().subscribe((emails: any[]) => {
       if(emails['status']) {

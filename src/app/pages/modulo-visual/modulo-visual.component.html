@@ -56,3 +56,8 @@
 
 <!--- modal -->
 <app-modal [caso]="caso" [descripcion]="descripcion"></app-modal>
+
+
+<div class="loading fa-2x" *ngIf="email.loading">
+    <i class="fas fa-spinner fa-spin me-2"></i>Descargando archivos...
+</div>
