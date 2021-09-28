@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "buzonApp"
+    }
+  },
+  "defaultProject": "buzonApp",
+  "cli": {
+    "analytics": false
+  }
 }
